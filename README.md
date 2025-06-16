@@ -86,7 +86,7 @@ src/
 Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
 
 ```env
-VITE_API_URL=sua_url_api
+VITE_API_URL=https://tasksphere-backend-utsh.onrender.com
 ```
 
 ## 📝 Licença
