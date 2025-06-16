@@ -19,12 +19,14 @@ const Dashboard = () => {
   );
 
   const tasks = tasksData?.data?.tasks || [];
-  // const projects = projectsData?.data || [];
+  const totalTasks = tasksData?.data?.pagination?.total || 0;
   const projects = projectsData?.projects || [];
+  const totalProjects = projectsData?.total || 0;
   const recentProjects = projects?.slice(0, 3) || [];
-  const recentTasks = tasks?.slice(0, 5) || [];
+  const recentTasks = tasks?.slice(0, 3) || [];
   const completedTasks = tasks?.filter(task => task.status === 'done') || [];
   const pendingTasks = tasks?.filter(task => task.status === 'todo') || [];
+  const inProgressTasks = tasks?.filter(task => task.status === 'in_progress') || [];
 
   if (isLoadingProjects || isLoadingTasks) {
     return (
@@ -58,7 +60,7 @@ const Dashboard = () => {
             <div className="text-center">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white">Total de Projetos</h3>
               <p className="mt-2 text-3xl font-bold text-primary-600 dark:text-primary-400">
-                {projects?.length || 0}
+                {totalProjects}
               </p>
             </div>
           </Card>
@@ -67,16 +69,16 @@ const Dashboard = () => {
             <div className="text-center">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white">Total de Tarefas</h3>
               <p className="mt-2 text-3xl font-bold text-primary-600 dark:text-primary-400">
-                {tasks?.length || 0}
+                {totalTasks}
               </p>
             </div>
           </Card>
 
           <Card className="bg-white dark:bg-gray-800">
             <div className="text-center">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white">Tarefas Concluídas</h3>
-              <p className="mt-2 text-3xl font-bold text-green-600 dark:text-green-400">
-                {completedTasks.length}
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white">Em Progresso</h3>
+              <p className="mt-2 text-3xl font-bold text-blue-600 dark:text-blue-400">
+                {inProgressTasks.length}
               </p>
             </div>
           </Card>
@@ -93,7 +95,6 @@ const Dashboard = () => {
 
         <div className="mt-12">
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-
             <Card>
               <h3 className="text-lg font-medium text-gray-900 dark:text-white">
                 Projects Recentes
@@ -102,7 +103,7 @@ const Dashboard = () => {
                 Projects que você é criador ou colaborador
               </p>
               <div className="mt-4 space-y-4">
-                {recentProjects.map((project) => (
+                {recentProjects.slice(0,4).map((project) => (
                   <div
                     key={project._id}
                     className="flex items-center shadow-xl justify-between p-4 bg-gray-50 dark:bg-gray-900 rounded-lg max-w-full"
@@ -112,7 +113,10 @@ const Dashboard = () => {
                         {project.name}
                       </h4>
                       <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
-                        {project.description || 'No description provided'}
+                        {project.description || 'Sem descrição'}
+                      </p>
+                      <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
+                        Criado por: {project.creator_id.name}
                       </p>
                     </div>
                     <Link
@@ -141,17 +145,22 @@ const Dashboard = () => {
                 Suas Tasks criadas
               </h3>
               <div className="mt-4 space-y-4">
-                {recentTasks.map((task) => (
+                {recentTasks.slice(0, 3).map((task) => (
                   <div
                     key={task._id}
                     className="flex items-center shadow-xl justify-between p-4 bg-gray-50 dark:bg-gray-900 rounded-lg"
                   >
                     <div>
-                      <h4 className=" font-medium text-gray-900 dark:text-white">
-                        {task.project_id.name}
+                      <h4 className="font-medium text-gray-900 dark:text-white">
+                        {task.project_id?.name || 'Sem projeto'}
                       </h4>
-                      <p className=" font-light text-gray-900 dark:text-white">
+                      <p className="font-light text-gray-900 dark:text-white">
                         {task.title}
+                      </p>
+                      <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
+                        Status: {task.status === 'in_progress' ? 'Em Progresso' : 
+                               task.status === 'todo' ? 'Pendente' : 
+                               task.status === 'done' ? 'Concluída' : task.status}
                       </p>
                       {task.image_url && (
                         <img

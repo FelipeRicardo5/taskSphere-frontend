@@ -8,6 +8,8 @@ import { toast } from 'react-toastify';
 import { getTask, createTask, updateTask, uploadTaskImage } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 
+import Loading from '../public/infinite-spinner.svg'
+
 const schema = yup.object().shape({
   title: yup
     .string()
@@ -230,7 +232,12 @@ const EditTask = () => {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="flex flex-col items-center justify-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-600"></div>
+          <img
+            src={Loading}
+            width={100}
+            alt="Loading..."
+            className="animate-pulse"
+          />
         </div>
       </div>
     );

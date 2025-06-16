@@ -32,14 +32,17 @@ const Layout = () => {
           <div className="flex justify-between h-16">
             <div className="flex">
               <div className="flex-shrink-0 flex items-center">
-                <span className="flex items-center gap-2 text-xl font-bold text-primary-600 dark:text-primary-400">
+                <button 
+                  onClick={() => navigate('/')}
+                  className="flex items-center gap-2 text-xl font-bold text-primary-600 dark:text-primary-400 hover:opacity-80 transition-opacity"
+                >
                   <span className="hidden sm:inline">TaskSphere</span>
                   <img
                     src={Icon}
                     width={40}
                     alt="TaskSphere"
                   />
-                </span>
+                </button>
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                 <button
