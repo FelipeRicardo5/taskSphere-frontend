@@ -25,7 +25,7 @@ TaskSphere é uma aplicação moderna de gerenciamento de tarefas desenvolvida c
 
 1. Clone o repositório:
 ```bash
-git clone [URL_DO_REPOSITÓRIO]
+git clone https://github.com/FelipeRicardo5/taskSphere-frontend
 cd tasksphere
 ```
 
