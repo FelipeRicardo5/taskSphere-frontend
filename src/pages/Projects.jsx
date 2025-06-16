@@ -17,12 +17,12 @@ const ProjectCard = ({ project }) => {
     : project.description?.slice(0, MAX_DESCRIPTION_LENGTH) + '...';
 
   return (
-    <div className="card h-full flex flex-col max-h-[300px]">
-      <h3 className="text-lg font-medium text-gray-900 dark:text-white truncate">
+    <div className="card h-full flex flex-col max-h-[300px] sm:max-h-[350px] lg:max-h-[400px]">
+      <h3 className="text-base sm:text-lg font-medium text-gray-900 dark:text-white truncate">
         {project.name}
       </h3>
       <div className="mt-2 flex-grow overflow-hidden">
-        <p className="text-sm text-gray-500 dark:text-gray-400 break-words hyphens-auto line-clamp-3">
+        <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 break-words hyphens-auto line-clamp-3">
           {displayText || 'No description provided'}
         </p>
         {shouldTruncate && (
@@ -42,19 +42,19 @@ const ProjectCard = ({ project }) => {
           </button>
         )}
       </div>
-      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+      <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
         criado por: <span className="font-medium text-gray-700 dark:text-gray-300">{project.creator_id.name}</span>
       </p>
-      <div className="mt-4 flex justify-between items-center">
+      <div className="mt-4 flex justify-between items-center gap-2">
         <Link
           to={`/projects/${project._id}`}
-          className="btn-secondary text-sm"
+          className="btn-secondary text-xs sm:text-sm flex-1 text-center"
         >
           Detalhes
         </Link>
         <Link
           to={`/projects/${project._id}/edit`}
-          className="btn text-sm"
+          className="btn text-xs sm:text-sm flex-1 text-center"
         >
           Editar
         </Link>
@@ -83,27 +83,27 @@ const Projects = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
           Projects
         </h1>
-        <Link to="/projects/new" className="btn">
+        <Link to="/projects/new" className="btn w-full sm:w-auto">
           Create Project
         </Link>
       </div>
 
-      <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-6 sm:mt-8 grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {projects.length === 0 ? (
-          <div className="col-span-full text-center py-12">
-            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+          <div className="col-span-full text-center py-8 sm:py-12">
+            <h3 className="text-lg sm:text-xl font-medium text-gray-900 dark:text-white mb-2">
               Nenhum projeto encontrado
             </h3>
-            <p className="text-gray-500 dark:text-gray-400">
+            <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400">
               Comece criando seu primeiro projeto!
             </p>
             <div className="mt-4">
-              <Link to="/projects/new" className="btn">
+              <Link to="/projects/new" className="btn w-full sm:w-auto">
                 Criar Projeto
               </Link>
             </div>
