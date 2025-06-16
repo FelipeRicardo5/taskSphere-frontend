@@ -107,8 +107,6 @@ const Tasks = () => {
     [allTasks.length, filters.limit]
   );
 
-
-
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
@@ -126,14 +124,27 @@ const Tasks = () => {
       />
 
       <div className="mt-6">
-        <TaskList
-          tasks={filteredTasks}
-          totalPages={totalPages}
-          currentPage={filters.page}
-          onPageChange={handlePageChange}
-        />
+        {isLoading ? (
+          <div className="flex flex-col items-center justify-center py-12">
+            <img
+              src={Loading}
+              width={80}
+              alt="Loading..."
+              className="animate-pulse"
+            />
+            <p className="mt-4 text-gray-500 dark:text-gray-400">
+              Carregando tasks...
+            </p>
+          </div>
+        ) : (
+          <TaskList
+            tasks={filteredTasks}
+            totalPages={totalPages}
+            currentPage={filters.page}
+            onPageChange={handlePageChange}
+          />
+        )}
       </div>
-
     </div>
   );
 };
